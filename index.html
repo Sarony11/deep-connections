@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juegos Rompe Hielo Rolero</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="deck-selection-area" class="container">
+        <h1>Elige un Mazo</h1>
+        <div id="deck-options">
+            </div>
+    </div>
+
+    <div id="game-area" class="container hidden">
+        <h1 id="current-deck-title"></h1> <div id="question-area">
+            <p id="current-question">Cargando pregunta...</p>
+        </div>
+
+        <p id="progress-indicator" class="hidden"></p> <button id="next-question-btn">Siguiente Pregunta</button>
+
+        <button id="back-to-decks-btn" class="hidden">Volver a Elegir Mazo</button>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

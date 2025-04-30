@@ -1,0 +1,184 @@
+/* Estilos Generales para el Cuerpo de la Página */
+body {
+    font-family: 'Arial', sans-serif; /* Usamos una fuente común y limpia */
+    display: flex;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    min-height: 100vh; /* Asegura que el cuerpo ocupa al menos todo el alto de la ventana */
+    background: linear-gradient(to bottom right, #6a11cb, #2575fc); /* Fondo con un gradiente azul/morado */
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box; /* Incluye padding y border en el tamaño del elemento */
+    color: #333; /* Color de texto oscuro por defecto */
+    line-height: 1.6; /* Mejora la legibilidad del texto general */
+}
+
+/* Estilo para el Contenedor Principal (Tarjeta) */
+.container {
+    background-color: #ffffff; /* Fondo blanco para la tarjeta */
+    padding: 40px; /* Mayor padding interno */
+    border-radius: 12px; /* Bordes más redondeados */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    /* Animación de aparición */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInSlideUp 0.6s ease-out forwards;
+}
+
+/* Definición de la animación */
+@keyframes fadeInSlideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos para los Títulos */
+h1 {
+    color: #333;
+    margin-bottom: 30px; /* Más espacio debajo del título */
+    font-size: 2.2em; /* Tamaño de fuente un poco más grande */
+    font-weight: 700; /* Negrita */
+    letter-spacing: -0.5px; /* Espaciado ligero entre letras */
+}
+
+/* Estilo para la Zona de la Pregunta (Tarjeta Interior) */
+#question-area {
+    min-height: 150px; /* Altura mínima para dar espacio */
+    display: flex;
+    align-items: center; /* Centra el texto verticalmente */
+    justify-content: center; /* Centra el texto horizontalmente */
+    margin-bottom: 30px;
+    padding: 25px;
+    border: none; /* Quitamos el borde punteado anterior */
+    background-color: #f9f9f9; /* Fondo ligeramente gris para distinguirlo */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.05); /* Sombra interior sutil */
+    font-size: 1.4em; /* Tamaño de fuente de la pregunta */
+    line-height: 1.6; /* Espaciado de línea mejorado */
+    color: #555;
+    font-style: italic; /* La pregunta en cursiva */
+    word-break: break-word; /* Para evitar que palabras largas desborden */
+}
+
+#current-question {
+    margin: 0; /* Elimina el margen por defecto del párrafo */
+    text-align: center; /* Asegura que el texto esté centrado */
+}
+
+/* Estilo para el Botón "Siguiente Pregunta" */
+#next-question-btn {
+    display: inline-block;
+    padding: 12px 25px; /* Mayor padding */
+    font-size: 1.1em; /* Tamaño de fuente */
+    color: #ffffff; /* Texto blanco */
+    background-color: #007bff; /* Color primario azul */
+    border: none;
+    border-radius: 25px; /* Bordes muy redondeados (forma de píldora) */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease; /* Transiciones suaves */
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); /* Sombra que coincide con el color */
+    font-weight: 600; /* Semi-negrita */
+}
+
+#next-question-btn:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
+    transform: translateY(-2px); /* Efecto de ligero levantamiento */
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4);
+}
+
+#next-question-btn:active {
+    background-color: #004085; /* Azul aún más oscuro al hacer clic */
+    transform: translateY(0); /* Efecto de "presionar" */
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.5);
+}
+
+#next-question-btn:disabled {
+    background-color: #cccccc; /* Gris cuando está deshabilitado */
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Estilos específicos para el Área de Selección de Mazo */
+#deck-selection-area h1 {
+     margin-bottom: 20px; /* Menos margen para que los botones estén más cerca */
+}
+
+#deck-options {
+    margin-top: 20px;
+}
+
+#deck-options button {
+    display: block;
+    width: 90%; /* Ancho de los botones de mazo */
+    margin: 15px auto; /* Espacio vertical entre botones */
+    padding: 15px; /* Padding interno */
+    font-size: 1.2em; /* Tamaño de fuente */
+    color: #ffffff; /* Texto blanco */
+    background-color: #28a745; /* Color verde */
+    border: none;
+    border-radius: 8px; /* Bordes redondeados */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease; /* Transiciones */
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3); /* Sombra verde */
+    font-weight: 600; /* Semi-negrita */
+}
+
+#deck-options button:hover {
+    background-color: #218838; /* Verde más oscuro al pasar el ratón */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(40, 167, 69, 0.4);
+}
+
+#deck-options button:active {
+    background-color: #1e7e34; /* Verde aún más oscuro al hacer clic */
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.5);
+}
+
+/* Estilo para el Indicador de Progreso */
+#progress-indicator {
+    margin-top: -15px; /* Ajusta el margen superior para acercarlo al área de pregunta/botón */
+    margin-bottom: 20px; /* Espacio debajo del indicador */
+    font-size: 1em; /* Tamaño de fuente normal */
+    color: #777; /* Un color gris sutil */
+    text-align: center;
+}
+
+/* Estilo para el Botón "Volver a Elegir Mazo" */
+#back-to-decks-btn {
+    display: inline-block; /* Comportamiento similar al botón Siguiente */
+    padding: 12px 25px;
+    font-size: 1.1em;
+    color: #ffffff;
+    background-color: #6c757d; /* Un color secundario (gris) */
+    border: none;
+    border-radius: 25px; /* Forma de píldora */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3); /* Sombra acorde al color */
+    font-weight: 600;
+    margin-top: 10px; /* Espacio sobre este botón si aparece después del "Siguiente" */
+}
+
+#back-to-decks-btn:hover {
+    background-color: #5a6268; /* Color más oscuro al pasar el ratón */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(108, 117, 125, 0.4);
+}
+
+#back-to-decks-btn:active {
+    background-color: #4e555b; /* Color aún más oscuro al hacer clic */
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(108, 117, 125, 0.5);
+}
+
+/* Asegúrate de que la clase hidden sigue definida */
+.hidden {
+    display: none;
+}
+
