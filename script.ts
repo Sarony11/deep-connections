@@ -1,5 +1,6 @@
-// ... (El objeto 'decks' y la función 'shuffleArray' son los mismos) ...
-const decks: { [key: string]: { name: string; questions: string[] } } = {
+// Definimos los mazos disponibles. Cada mazo tiene un 'id' (clave), un 'name' (nombre a mostrar),
+// un array de 'questions' y una propiedad 'order' ('random' o 'sequential').
+const decks: { [key: string]: { name: string; questions: string[]; order: 'random' | 'sequential' } } = {
     "conexion-rolera": {
         name: "Conexión Rolera",
         questions: [
@@ -12,21 +13,22 @@ const decks: { [key: string]: { name: string; questions: string[] } } = {
             "¿Cómo manejas los conflictos o las decisiones difíciles en el juego, ya sea como jugador o DJ/narrador?",
             "¿Hay algún personaje que hayas tenido que \"retirar\" (por muerte, jubilación, etc.) y que echas de menos?",
             "¿Qué te parece más importante en una buena mesa de juego: la historia, los personajes, las reglas, el ambiente?",
-            "¿Has tenido alguna experiencia memorable interpretando a un personaje muy diferente a ti? (Por ejemplo, alguien muy diferente a ti)" , // Ligeramente ajustada
+            "¿Has tenido alguna experiencia memorable interpretando a un personaje muy diferente a ti? (Por ejemplo, alguien muy diferente a ti)",
             "¿Cuál es tu mayor miedo o preocupación como jugador/a o DJ/narrador/a en una partida?",
             "¿Qué te inspira a crear un personaje o una historia para rol?",
             "¿Hay alguna habilidad o cualidad que admires en otros jugadores/DJ/narradores?",
             "¿Qué papel sueles tomar (o prefieres tomar) en un grupo de juego? (El líder, el que sigue, el que bromea, el que investiga, etc.)",
-            "¿Cómo te preparas antes de una sesión de juego? (Mentalmente, leyendo, etc.)", // Ligeramente ajustada
-            "¿Hay algún tropo o cliché de rol (en historias, personajes, situaciones) que disfrutes (o detestes) particularmente? ¿Por qué?", // Ligeramente ajustada
-            "¿Qué significa para ti la \"inmersión\" en una partida de rol? ¿Qué te ayuda (o te saca) de ella?", // Ligeramente ajustada
+            "¿Cómo te preparas antes de una sesión de juego? (Mentalmente, leyendo, etc.)",
+            "¿Hay algún tropo o cliché de rol (en historias, personajes, situaciones) que disfrutes (o detestes) particularmente? ¿Por qué?",
+            "¿Qué significa para ti la \"inmersión\" en una partida de rol? ¿Qué te ayuda (o te saca) de ella?",
             "¿Qué es lo más divertido que te ha pasado *fuera* de la partida, pero relacionado con ella? (Charlas post-partida, memes, etc.)",
-            "Si pudieras vivir en un mundo de rol, ¿cuál sería y por qué? (O en qué mundo de rol te gustaría vivir)" ,
-            "¿Qué te atrae más de los juegos de rol en vivo (LARP) en comparación con los de mesa, si has jugado a ambos? ¿Encuentras alguna diferencia clave en la experiencia?" // Ligeramente ajustada
-        ]
+            "Si pudieras vivir en un mundo de rol, ¿cuál sería y por qué? (O en qué mundo de rol te gustaría vivir)",
+            "¿Qué te atrae más de los juegos de rol en vivo (LARP) en comparación con los de mesa, si has jugado a ambos? ¿Encuentras alguna diferencia clave en la experiencia?"
+        ],
+        order: 'random' // Este mazo es aleatorio
     },
-    "disenadores-larp": { // <-- ID único para este mazo
-        name: "Reflexiones para Diseñadores de LARP", // <-- Nombre a mostrar
+    "disenadores-larp": {
+        name: "Reflexiones para Diseñadores de LARP",
         questions: [
             "¿Qué te impulsó a diseñar tu primer rol en vivo? ¿Qué sigues buscando al crear uno nuevo?",
             "¿Hay algún tema o tipo de experiencia que sientas que defines o exploras recurrentemente en tus diseños?",
@@ -58,11 +60,85 @@ const decks: { [key: string]: { name: string; questions: string[] } } = {
             "¿Qué esperas que los jugadores se lleven consigo después de participar en uno de tus LARPs?",
             "¿Qué opinión tienes sobre la relación entre el arte, el juego y la comunidad en el rol en vivo?",
             "Si tuvieras recursos ilimitados, ¿cómo sería el LARP de tus sueños para diseñar?"
-        ]
+        ],
+        order: 'random' // Este mazo es aleatorio
+    },
+    "calibracion-larp": {
+        name: "Mazo: Calibración de Personajes LARP",
+        questions: [
+            "**Seguridad y Límites (Jugador a Jugador):** Como jugadores, ¿qué nos sentiríamos más cómodos explorando en la relación de nuestros personajes y qué temas o acciones preferiríamos manejar con especial cuidado o evitar? Hablemos de nuestras señales de seguridad si las tenemos.",
+            "Describe un momento clave en el pasado que definió (o redefinió) la relación entre nuestros personajes. ¿Cómo cambió su dinámica a partir de ahí?",
+            "**Pre-Narra:** Imagina un recuerdo feliz que nuestros personajes compartan. Narren brevemente esa escena juntos, turnándose o colaborando.",
+            "¿Cuál es el mayor punto de tensión o conflicto recurrente en la relación de nuestros personajes?",
+            "¿Qué es lo que tu personaje más admira o valora del mío? ¿Y qué es lo que más le frustra o le cuesta entender?",
+            "**Jugador a Jugador:** ¿Qué tipo de \"química\" o dinámica (ej. intensa, juguetona, conflictiva, de apoyo) nos gustaría explorar y crear entre nuestros personajes?",
+            "Describe brevemente cómo fue el primer encuentro significativo entre nuestros personajes. ¿Cuál fue la primera impresión (real o percibida)?",
+            "¿Hay algún secreto importante que tu personaje guarde del mío (o viceversa, si se aplica)? Como jugadores, ¿hasta qué punto queremos explorar esto?",
+            "**Pre-Narra:** Narren un momento en el que nuestros personajes tuvieron que apoyarse mutuamente en una situación difícil. ¿Cómo se sintieron en ese momento?",
+            "¿Qué miedos o inseguridades tiene tu personaje respecto a esta relación?",
+            "**Jugador a Jugador:** ¿Hay algún tema sensible dentro de la historia de nuestros personajes que debamos abordar con cuidado o con señales de seguridad adicionales?",
+            "Describe un momento en el que la confianza mutua se puso a prueba.",
+            "¿Qué sacrificios ha hecho tu personaje por el mío (o viceversa)?",
+            "**Pre-Narra:** Narren un recuerdo doloroso o triste que nuestros personajes vivieron juntos. ¿Cómo reaccionaron?",
+            "¿Qué papel juega el humor o la ligereza (si la hay) en la relación de nuestros personajes?",
+            "**Jugador a Jugador:** ¿Qué nos gustaría que otros jugadores notaran o entendieran sobre la relación de nuestros personajes?",
+            "Describe un rasgo de carácter de mi personaje que el tuyo encuentre particularmente atractivo o irritante (en un sentido dramático).",
+            "¿Cuál es el \"pegamento\" que mantiene unidos a nuestros personajes, incluso en los peores momentos?",
+            "**Pre-Narra:** Narren una pequeña discusión o desacuerdo que hayan tenido nuestros personajes. ¿Cómo terminó?",
+            "¿Hay algún futuro potencial para la relación de nuestros personajes que te emocione (o te preocupe) explorar?",
+            "**Jugador a Jugador:** ¿Qué señales podríamos usar si en algún momento queremos pausar, ajustar o detener una escena intensa entre nuestros personajes?",
+            "Describe una tradición o un ritual (grande o pequeño) que sea único de la relación de nuestros personajes.",
+            "¿Cuál es el mayor miedo de tu personaje respecto a su relación con el mío?",
+            "**Pre-Narra:** Narren un momento en el que nuestros personajes compartieron un secreto importante.",
+            "¿Cómo influyen otros personajes o factores externos en la relación de nuestros personajes?",
+            "**Jugador a Jugador:** ¿Qué nos gustaría que *sentimos* al jugar esta relación? (Por ejemplo, tensión, comodidad, desafío).",
+            "Describe un momento en el que uno de nuestros personajes sorprendió al otro de una manera significativa.",
+            "¿Qué no se dicen nuestros personajes el uno al otro, pero ambos saben (o sospechan)?",
+            "**Pre-Narra:** Narren un momento futuro (hipotético, no tiene por qué ocurrir en el LARP) en el que la relación de nuestros personajes ha cambiado drásticamente.",
+            "**Jugador a Jugador:** ¿Cuál es el objetivo principal (o los objetivos) que tenemos como jugadores al explorar esta relación particular durante el LARP?"
+        ],
+        order: 'sequential' // ¡Este mazo es secuencial!
+    },
+    "conexion-profunda": {
+        name: "Mazo: Conexión Profunda",
+        questions: [
+            "¿Qué es algo que te apasionaba de niño/a y que has dejado de lado? ¿Lo echas de menos en tu vida actual?",
+            "Si tuvieras un día libre completo, sin responsabilidades ni planes preestablecidos, ¿qué te gustaría hacer realmente?",
+            "Comparte un miedo que hayas logrado superar. ¿Cómo te sentiste durante el proceso y qué aprendiste de él?",
+            "¿Hay alguna pequeña costumbre o ritual en tu rutina diaria que sea importante o significativo para ti?",
+            "Si pudieras dar un único consejo a tu \"yo\" de hace diez años, ¿cuál sería y por qué?",
+            "Describe un lugar (real o imaginado) donde te sientas completamente en paz y contigo mismo/a.",
+            "¿Qué has descubierto sobre ti mismo/a en el último año que te haya sorprendido?",
+            "¿Hay alguna canción o libro que te haya marcado especialmente en algún momento de tu vida? ¿Por qué?",
+            "Si tuvieras que describir un momento en el que te sentiste vulnerable, ¿cuál sería?",
+            "¿Qué cualidad admiras más en las personas cercanas a ti?",
+            "¿Hay algún sueño que tenías y que, por alguna razón, no pudiste perseguir?",
+            "¿Cuál es un pequeño acto de amabilidad que has experimentado o presenciado y que recuerdas con cariño?",
+            "¿Qué te quita el sueño a veces?",
+            "Si pudieras tener una conversación con cualquier persona, viva o muerta, ¿quién sería y qué le preguntarías?",
+            "¿Qué es algo que te hace sentir orgulloso/a de ti mismo/a?",
+            "¿Cómo manejas los momentos de incertidumbre o cambio en tu vida?",
+            "¿Hay alguna posesión material que tenga un gran valor sentimental para ti? Cuéntame su historia.",
+            "¿Qué significa para ti la amistad?",
+            "¿Cuál es un desafío que estás enfrentando ahora mismo (si te sientes cómodo/a compartiéndolo)?",
+            "¿Qué te ayuda a sentirte conectado/a con los demás?",
+            "¿Hay alguna creencia o valor que haya cambiado significativamente a lo largo de tu vida?",
+            "¿Cuál es un logro (grande o pequeño) por el que has trabajado duro?",
+            "Si pudieras cambiar una cosa del mundo, ¿cuál sería?",
+            "¿Qué te saca una sonrisa garantizada?",
+            "¿Hay algún lugar al que sueñes viajar algún día? ¿Por qué?",
+            "¿Qué te enseña algo sobre ti mismo/a el tipo de historias o películas que disfrutas?",
+            "¿Cómo recargas energías cuando te sientes agotado/a emocionalmente?",
+            "¿Qué es algo que te gustaría aprender a hacer?",
+            "¿Hay alguna \"pequeña victoria\" reciente en tu vida que te gustaría celebrar?",
+            "¿Qué es lo más importante que has aprendido de tus relaciones (amistades, familia, pareja)?"
+        ],
+        order: 'random' // Este mazo es aleatorio
     }
+    // Aquí podrías añadir más mazos en el futuro
 };
 
-// Función para barajar el array (algoritmo Fisher-Yates)
+// Función para barajar el array (algoritmo Fisher-Yates) - No cambia
 function shuffleArray<T>(array: T[]): T[] {
     const shuffledArray = [...array];
     for (let i = shuffledArray.length - 1; i > 0; i--) {
@@ -75,24 +151,24 @@ function shuffleArray<T>(array: T[]): T[] {
 
 // Variables de estado del juego
 let currentDeckId: string | null = null;
-let shuffledQuestions: string[] = [];
-let currentQuestionIndex: number = 0;
+let shuffledQuestions: string[] = []; // Este array contendrá las preguntas en el orden que se mostrarán (barajado o secuencial)
+let currentQuestionIndex: number = 0; // Índice para seguir la pregunta actual
 
-// Obtenemos referencias a los elementos HTML (incluyendo los nuevos)
+
+// Obtenemos referencias a los elementos HTML
 const deckSelectionArea = document.getElementById('deck-selection-area') as HTMLDivElement | null;
 const deckOptionsArea = document.getElementById('deck-options') as HTMLDivElement | null;
 const gameArea = document.getElementById('game-area') as HTMLDivElement | null;
 const currentDeckTitleElement = document.getElementById('current-deck-title') as HTMLHeadingElement | null;
 const questionElement = document.getElementById('current-question') as HTMLParagraphElement | null;
 const nextButton = document.getElementById('next-question-btn') as HTMLButtonElement | null;
-const progressElement = document.getElementById('progress-indicator') as HTMLParagraphElement | null; // Nuevo
-const backToDecksButton = document.getElementById('back-to-decks-btn') as HTMLButtonElement | null; // Nuevo
+const progressElement = document.getElementById('progress-indicator') as HTMLParagraphElement | null;
+const backToDecksButton = document.getElementById('back-to-decks-btn') as HTMLButtonElement | null;
 
 
-// Función para mostrar la siguiente pregunta del mazo actual o fin del mazo
+// Función que se llama para mostrar la siguiente pregunta o el mensaje de fin del mazo
 function displayNextQuestion(): void {
-    // Verificamos si hay un mazo seleccionado y preguntas disponibles para mostrar
-    // currentQuestionIndex === shuffledQuestions.length significa que ya mostramos la última y el índice avanzó
+    // Verificamos si el mazo actual está agotado (el índice es igual o mayor que el número total de preguntas)
     if (!currentDeckId || shuffledQuestions.length === 0 || currentQuestionIndex >= shuffledQuestions.length) {
         // Esto significa que el mazo está agotado o vacío
         console.log(`Mazo '${currentDeckId ? decks[currentDeckId].name : 'ninguno'}' agotado o vacío.`);
@@ -100,10 +176,10 @@ function displayNextQuestion(): void {
         // Actualizamos el contenido del área de pregunta para indicar que se acabó el mazo
         if (questionElement) {
              questionElement.textContent = currentDeckId ?
-                 `¡Has completado el mazo "${decks[currentDeckId].name}"! ¡Excelente trabajo de conexión!` : // Mensaje de fin
-                 "Por favor, selecciona un mazo para empezar."; // Mensaje si displayNextQuestion se llama sin mazo
-             questionElement.style.fontStyle = 'normal'; // Quitamos la cursiva para el mensaje final
-             questionElement.style.color = '#333'; // Cambiamos el color para que destaque
+                 `¡Has completado el mazo "${decks[currentDeckId].name}"! ¡Excelente trabajo de conexión!` :
+                 "Por favor, selecciona un mazo para empezar.";
+             questionElement.style.fontStyle = 'normal'; // Quitamos la cursiva
+             questionElement.style.color = '#333'; // Color normal
         }
 
         // Ocultamos el botón "Siguiente Pregunta"
@@ -118,32 +194,30 @@ function displayNextQuestion(): void {
         // Actualizamos el indicador de progreso al mensaje de fin
         if (progressElement) {
             progressElement.textContent = "Mazo Completado";
-            progressElement.style.color = '#333'; // Ajustamos color
+            progressElement.style.color = '#333';
         }
 
         return; // Salimos de la función, el mazo ha terminado
     }
 
-    // Si todavía hay preguntas en el mazo barajado que no han sido mostradas
+    // Si todavía hay preguntas en el array preparado (barajado o secuencial) que no han sido mostradas
     if (questionElement) {
         // Mostramos la pregunta actual
         questionElement.textContent = shuffledQuestions[currentQuestionIndex];
-        questionElement.style.fontStyle = 'italic'; // Aseguramos cursiva para las preguntas
-        questionElement.style.color = '#555'; // Aseguramos color para las preguntas
+        questionElement.style.fontStyle = 'italic'; // Cursiva para las preguntas
+        questionElement.style.color = '#555'; // Color de pregunta
 
         // Actualizamos el indicador de progreso ANTES de incrementar el índice
         if (progressElement) {
             progressElement.textContent = `Pregunta ${currentQuestionIndex + 1} de ${shuffledQuestions.length}`;
-            progressElement.style.color = '#777'; // Aseguramos color para el progreso
+            progressElement.style.color = '#777'; // Color de progreso
         }
 
         currentQuestionIndex++; // Avanzamos al siguiente índice
 
-        console.log(`Mostrando pregunta ${currentQuestionIndex} de ${shuffledQuestions.length}`);
+        console.log(`Mostrando pregunta ${currentQuestionIndex} de ${shuffledQuestions.length} (del mazo actual)`);
 
-        // La lógica para mostrar el estado de fin de mazo se activará en la *siguiente* llamada
-        // a displayNextQuestion si acabamos de mostrar la última pregunta. No necesitamos hacer
-        // nada más aquí en este momento.
+        // La lógica de fin de mazo se activará automáticamente en la próxima llamada si acabamos de mostrar la última pregunta.
     } else {
         // Fallback si questionElement no existe
         console.error("Elemento 'current-question' no encontrado.");
@@ -164,13 +238,13 @@ function handleDeckSelection(deckId: string): void {
     if (!deck) {
         console.error("Mazo no encontrado:", deckId);
         if (questionElement) questionElement.textContent = "Error al cargar el mazo.";
-        if (nextButton) nextButton.disabled = true;
-        if (backToDecksButton) backToDecksButton.classList.add('hidden');
-        if (progressElement) progressElement.classList.add('hidden');
+        if (nextButton) if(nextButton) nextButton.disabled = true;
+        if (backToDecksButton) if(backToDecksButton) backToDecksButton.classList.add('hidden');
+        if (progressElement) if(progressElement) progressElement.classList.add('hidden');
         return;
     }
 
-    // Validar si el mazo seleccionado tiene preguntas
+     // Validar si el mazo seleccionado tiene preguntas
      if (deck.questions.length === 0) {
         console.warn(`El mazo '${deck.name}' está vacío.`);
          if (questionElement) {
@@ -209,44 +283,50 @@ function handleDeckSelection(deckId: string): void {
         currentDeckTitleElement.textContent = `Mazo: ${deck.name}`;
     }
 
-    // Barajamos las preguntas del mazo seleccionado
-    shuffledQuestions = shuffleArray([...deck.questions]); // Usamos una copia
-    currentQuestionIndex = 0; // Reiniciamos el índice
+    // --- Lógica Modificada para Orden Secuencial o Aleatorio ---
+    if (deck.order === 'random') {
+        shuffledQuestions = shuffleArray([...deck.questions]); // Barajamos una copia para orden aleatorio
+        console.log(`Mazo '${deck.name}' (Random) seleccionado. Preguntas barajadas.`);
+    } else { // deck.order === 'sequential'
+        shuffledQuestions = [...deck.questions]; // Usamos las preguntas en el orden original (creamos una copia)
+        console.log(`Mazo '${deck.name}' (Sequential) seleccionado.`);
+    }
+    // --- Fin Lógica Modificada ---
 
-    // Ocultamos el área de selección de mazo
+
+    currentQuestionIndex = 0; // Siempre empezamos por el primer elemento del array preparado (barajado o secuencial)
+
+    // Ocultamos el área de selección de mazo y mostramos el área de juego
     if (deckSelectionArea) deckSelectionArea.classList.add('hidden');
-    // Mostramos el área de juego
     if (gameArea) gameArea.classList.remove('hidden');
 
-    // Aseguramos que el botón "Siguiente" esté visible y habilitado
+    // Aseguramos visibilidad y estado de botones al iniciar el juego
     if (nextButton) {
         nextButton.classList.remove('hidden'); // Aseguramos que el botón Siguiente esté visible
-        nextButton.disabled = false;
+        nextButton.disabled = false; // Aseguramos que esté habilitado
         nextButton.textContent = "Siguiente Pregunta"; // Restauramos el texto por defecto
     }
     // Nos aseguramos de que el botón de volver esté oculto al inicio de una nueva partida
      if (backToDecksButton) backToDecksButton.classList.add('hidden');
 
-    // Mostramos el indicador de progreso y lo inicializamos
+     // Mostramos el indicador de progreso
     if (progressElement) {
-         progressElement.classList.remove('hidden'); // Aseguramos que sea visible
-         // La primera pregunta se muestra con displayNextQuestion, que actualizará el progreso
+         progressElement.classList.remove('hidden');
     }
-
 
     // Mostramos la primera pregunta y actualizamos el progreso
     displayNextQuestion(); // Esta llamada también actualiza el progreso a "Pregunta 1 de X"
 
-    console.log(`Mazo '${deck.name}' seleccionado y cargado. Total de preguntas: ${shuffledQuestions.length}`);
+    console.log(`Total de preguntas en el mazo: ${shuffledQuestions.length}`);
 }
 
 
-// Añadimos un 'event listener' al botón "Siguiente Pregunta"
+// Event listener para el botón "Siguiente Pregunta"
 if (nextButton) {
     nextButton.addEventListener('click', displayNextQuestion);
 }
 
-// Añadimos un 'event listener' al nuevo botón "Volver a Elegir Mazo"
+// Event listener para el botón "Volver a Elegir Mazo"
 if (backToDecksButton) {
     backToDecksButton.addEventListener('click', () => {
         console.log("Clic en 'Volver a Elegir Mazo'.");
@@ -284,18 +364,18 @@ if (backToDecksButton) {
 }
 
 
-// Cuando la página se cargue completamente
+// Cuando la página se cargue completamente, configuramos la interfaz inicial y los botones de mazo
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM completamente cargado.");
 
-    // Verificamos si los elementos HTML necesarios existen (incluyendo los nuevos)
+    // Verificamos si los elementos HTML necesarios existen
     if (!deckSelectionArea || !deckOptionsArea || !gameArea || !currentDeckTitleElement || !questionElement || !nextButton || !progressElement || !backToDecksButton) {
         console.error("Error fatal: No se encontraron todos los elementos HTML necesarios al cargar la página.");
         // Mostrar un mensaje de error visible si es posible
         const body = document.querySelector('body');
         if(body) {
              body.innerHTML = '<div class="container" style="color: red; text-align: center;"><h1>Error al cargar</h1><p>No se pudieron encontrar los elementos necesarios de la interfaz. Por favor, verifica los archivos HTML y JavaScript.</p></div>';
-             // Ocultar todo lo demás
+             // Ocultar todo lo demás (si existían)
              if (deckSelectionArea) deckSelectionArea.classList.add('hidden');
              if (gameArea) gameArea.classList.add('hidden');
         }
@@ -305,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Limpiamos el área de opciones de mazo por si acaso y creamos los botones dinámicamente
      if (deckOptionsArea) {
-        deckOptionsArea.innerHTML = '';
+        deckOptionsArea.innerHTML = ''; // Limpiar contenido existente
         for (const deckId in decks) {
             // Asegurarse de que la propiedad pertenece al objeto y no es heredada
             if (Object.prototype.hasOwnProperty.call(decks, deckId)) {
@@ -331,7 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (progressElement) progressElement.classList.add('hidden'); // Progreso oculto al inicio
     if (backToDecksButton) backToDecksButton.classList.add('hidden'); // Botón de volver oculto al inicio
     if (nextButton) { // Botón Siguiente oculto al inicio
-         nextButton.classList.add('hidden');
+         nextButton.classList.add('hidden'); // Ocultar el botón Siguiente al inicio
          nextButton.disabled = false; // Aseguramos que esté habilitado cuando se muestre
     }
 
