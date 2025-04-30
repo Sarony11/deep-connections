@@ -1,0 +1,25 @@
+steps:
+# Paso 1: Instalar dependencias de Node.js (incluyendo TypeScript)
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['install']
+  dir: '.' # Ejecuta npm install en la raíz del repositorio (donde está package.json)
+
+# Paso 2: Compilar TypeScript a JavaScript
+# Asumimos que tienes un script 'build' en tu package.json que ejecuta 'npx tsc script.ts'
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['run', 'build']
+  dir: '.' # Ejecuta el script build en la raíz del repositorio
+
+# Paso 3: Copiar los archivos compilados (y otros estáticos) al bucket de Cloud Storage
+# El directorio de origen '.' asume que tsc compila script.ts a script.js en la raíz
+# Si tsc compila a una subcarpeta (ej. 'dist'), cambia '.' por esa subcarpeta (ej. './dist')
+# Reemplaza [YOUR_BUCKET_NAME] con el nombre de tu bucket de Cloud Storage.
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['cp', '-r', '.', 'gs://deep-connections-app-static/']
+  dir: '.' # Copia los archivos desde la raíz del repositorio
+
+# Permisos: Cloud Build necesitará permisos para escribir en tu bucket de Storage.
+# La cuenta de servicio predeterminada de Cloud Build ([PROJECT_NUMBER]@cloudbuild.gserviceaccount.com)
+# generalmente tiene el rol 'Editor', que incluye permisos de escritura en Storage.
+# Si tienes permisos más restringidos, podrías necesitar otorgarle el rol 'Administrador de Storage'
+# o 'Escritor de objetos de Storage' a esa cuenta de servicio en tu bucket.

@@ -64,7 +64,7 @@ const decks: { [key: string]: { name: string; questions: string[]; order: 'rando
         order: 'random' // Este mazo es aleatorio
     },
     "calibracion-larp": {
-        name: "Mazo: Calibración de Personajes LARP",
+        name: "Calibración de Personajes LARP",
         questions: [
             "**Seguridad y Límites (Jugador a Jugador):** Como jugadores, ¿qué nos sentiríamos más cómodos explorando en la relación de nuestros personajes y qué temas o acciones preferiríamos manejar con especial cuidado o evitar? Hablemos de nuestras señales de seguridad si las tenemos.",
             "Describe un momento clave en el pasado que definió (o redefinió) la relación entre nuestros personajes. ¿Cómo cambió su dinámica a partir de ahí?",
@@ -100,7 +100,7 @@ const decks: { [key: string]: { name: string; questions: string[]; order: 'rando
         order: 'sequential' // ¡Este mazo es secuencial!
     },
     "conexion-profunda": {
-        name: "Mazo: Conexión Profunda",
+        name: "Conexión Profunda",
         questions: [
             "¿Qué es algo que te apasionaba de niño/a y que has dejado de lado? ¿Lo echas de menos en tu vida actual?",
             "Si tuvieras un día libre completo, sin responsabilidades ni planes preestablecidos, ¿qué te gustaría hacer realmente?",
