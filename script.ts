@@ -26,7 +26,7 @@ const decks: { [key: string]: { name: string; questions: string[]; order: 'rando
             "¿Qué te atrae más de los juegos de rol en vivo (LARP) en comparación con los de mesa, si has jugado a ambos? ¿Encuentras alguna diferencia clave en la experiencia?"
         ],
         order: 'random', // Este mazo es aleatorio
-        description: "Preguntas diseñadas para romper el hielo y conocerse mejor, ideal para grupos de rol o amigos con intereses similares."
+        description: "Preguntas diseñadas para romper el hielo y conocerse mejor entre grupos y colegas roleros que compaten afición."
     },
     "disenadores-larp": {
         name: "Reflexiones para Diseñadores de LARP",
