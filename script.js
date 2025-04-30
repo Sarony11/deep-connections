@@ -34,7 +34,8 @@ var decks = {
             "Si pudieras vivir en un mundo de rol, ¿cuál sería y por qué? (O en qué mundo de rol te gustaría vivir)",
             "¿Qué te atrae más de los juegos de rol en vivo (LARP) en comparación con los de mesa, si has jugado a ambos? ¿Encuentras alguna diferencia clave en la experiencia?"
         ],
-        order: 'random' // Este mazo es aleatorio
+        order: 'random', // Este mazo es aleatorio
+        description: "Preguntas diseñadas para romper el hielo y conocerse mejor, ideal para grupos de rol o amigos con intereses similares."
     },
     "disenadores-larp": {
         name: "Reflexiones para Diseñadores de LARP",
@@ -70,10 +71,11 @@ var decks = {
             "¿Qué opinión tienes sobre la relación entre el arte, el juego y la comunidad en el rol en vivo?",
             "Si tuvieras recursos ilimitados, ¿cómo sería el LARP de tus sueños para diseñar?"
         ],
-        order: 'random' // Este mazo es aleatorio
+        order: 'random', // Este mazo es aleatorio
+        description: "Mazo enfocado a diseñadores y organizadores de LARP para reflexionar sobre su proceso creativo, voz artística y técnicas."
     },
     "calibracion-larp": {
-        name: "Mazo: Calibración de Personajes LARP",
+        name: "Calibración de Personajes LARP",
         questions: [
             "**Seguridad y Límites (Jugador a Jugador):** Como jugadores, ¿qué nos sentiríamos más cómodos explorando en la relación de nuestros personajes y qué temas o acciones preferiríamos manejar con especial cuidado o evitar? Hablemos de nuestras señales de seguridad si las tenemos.",
             "Describe un momento clave en el pasado que definió (o redefinió) la relación entre nuestros personajes. ¿Cómo cambió su dinámica a partir de ahí?",
@@ -106,10 +108,11 @@ var decks = {
             "**Pre-Narra:** Narren un momento futuro (hipotético, no tiene por qué ocurrir en el LARP) en el que la relación de nuestros personajes ha cambiado drásticamente.",
             "**Jugador a Jugador:** ¿Cuál es el objetivo principal (o los objetivos) que tenemos como jugadores al explorar esta relación particular durante el LARP?"
         ],
-        order: 'sequential' // ¡Este mazo es secuencial!
+        order: 'sequential', // ¡Este mazo es secuencial!
+        description: "Preguntas para profundizar la conexión entre personas que ya se conocen, explorando vulnerabilidades, sueños y valores personales."
     },
     "conexion-profunda": {
-        name: "Mazo: Conexión Profunda",
+        name: "Conexión Profunda",
         questions: [
             "¿Qué es algo que te apasionaba de niño/a y que has dejado de lado? ¿Lo echas de menos en tu vida actual?",
             "Si tuvieras un día libre completo, sin responsabilidades ni planes preestablecidos, ¿qué te gustaría hacer realmente?",
@@ -142,7 +145,8 @@ var decks = {
             "¿Hay alguna \"pequeña victoria\" reciente en tu vida que te gustaría celebrar?",
             "¿Qué es lo más importante que has aprendido de tus relaciones (amistades, familia, pareja)?"
         ],
-        order: 'random' // Este mazo es aleatorio
+        order: 'random', // Este mazo es aleatorio
+        description: "Diseñado para la calibración de personajes en LARP, con preguntas y prompts para construir vínculos, establecer límites y explorar la historia compartida."
     }
     // Aquí podrías añadir más mazos en el futuro
 };
@@ -351,7 +355,7 @@ if (backToDecksButton) {
         console.log("Volviendo a la selección de mazo.");
     });
 }
-// Cuando la página se cargue completamente, configuramos la interfaz inicial y los botones de mazo
+// Cuando la página se cargue completamente, configuramos la interfaz inicial y creamos las tarjetas de mazo
 document.addEventListener('DOMContentLoaded', function () {
     console.log("DOM completamente cargado.");
     // Verificamos si los elementos HTML necesarios existen
@@ -369,27 +373,45 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return; // Detenemos la ejecución si faltan elementos cruciales
     }
-    // Limpiamos el área de opciones de mazo por si acaso y creamos los botones dinámicamente
+    // Limpiamos el área de opciones de mazo y creamos las tarjetas dinámicamente
     if (deckOptionsArea) {
         deckOptionsArea.innerHTML = ''; // Limpiar contenido existente
         var _loop_1 = function (deckId) {
             // Asegurarse de que la propiedad pertenece al objeto y no es heredada
             if (Object.prototype.hasOwnProperty.call(decks, deckId)) {
                 var deck = decks[deckId];
-                var button = document.createElement('button');
-                button.textContent = "Mazo: ".concat(deck.name);
-                // Usamos un atributo data para guardar el ID del mazo en el botón
-                button.dataset.deckId = deckId;
-                // Añadimos un event listener a cada botón que llama a handleDeckSelection
-                button.addEventListener('click', function () { return handleDeckSelection(deckId); });
-                // Añadimos el botón al área de opciones de mazo
-                deckOptionsArea.appendChild(button);
+                // --- Inicio: Lógica para crear la estructura de tarjeta ---
+                var cardContainer = document.createElement('div');
+                cardContainer.classList.add('deck-card');
+                cardContainer.dataset.deckId = deckId; // Almacenamos el ID del mazo en un atributo data del contenedor
+                var cardInner = document.createElement('div');
+                cardInner.classList.add('deck-card-inner');
+                var cardFront = document.createElement('div');
+                cardFront.classList.add('deck-card-front');
+                var frontTitle = document.createElement('h3'); // Usamos un h3 para el título en el frente
+                frontTitle.textContent = deck.name;
+                cardFront.appendChild(frontTitle);
+                var cardBack = document.createElement('div');
+                cardBack.classList.add('deck-card-back');
+                var backDescription = document.createElement('p'); // Usamos un p para la descripción en la parte trasera
+                backDescription.textContent = deck.description;
+                cardBack.appendChild(backDescription);
+                // Añadimos la cara frontal y trasera al contenedor interior
+                cardInner.appendChild(cardFront);
+                cardInner.appendChild(cardBack);
+                // Añadimos el contenedor interior al contenedor principal de la tarjeta
+                cardContainer.appendChild(cardInner);
+                // Añadimos un event listener al contenedor principal de la tarjeta para manejar la selección del mazo al hacer click
+                cardContainer.addEventListener('click', function () { return handleDeckSelection(deckId); }); // Llamamos a handleDeckSelection con el ID del mazo
+                // Añadimos la tarjeta completa al área de opciones de mazo
+                deckOptionsArea.appendChild(cardContainer);
+                // --- Fin: Lógica para crear la estructura de tarjeta ---
             }
         };
         for (var deckId in decks) {
             _loop_1(deckId);
         }
-        console.log("Creados ".concat(Object.keys(decks).length, " botones de mazo."));
+        console.log("Creados ".concat(Object.keys(decks).length, " tarjetas de mazo."));
     }
     // Aseguramos que el área de selección de mazo sea visible y el área de juego esté oculta al inicio
     // También ocultamos el progreso y los botones de volver/siguiente hasta que se seleccione un mazo
@@ -405,5 +427,5 @@ document.addEventListener('DOMContentLoaded', function () {
         nextButton.classList.add('hidden'); // Ocultar el botón Siguiente al inicio
         nextButton.disabled = false; // Aseguramos que esté habilitado cuando se muestre
     }
-    console.log("Configuración inicial completada. Mostrando área de selección de mazo.");
+    console.log("Configuración inicial completada. Mostrando área de selección de mazo con tarjetas.");
 });
