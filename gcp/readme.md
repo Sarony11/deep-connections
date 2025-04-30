@@ -144,35 +144,57 @@ Espera a que el certificado cambie su estado a ACTIVE. Esto puede tardar. Puedes
 Una vez que el certificado esté ACTIVE, configura los componentes del Load Balancer para HTTPS:
 
 ```bash
-# Reemplaza con el nombre de tu mapa de URL y tu IP estática (si no los definiste en tu terminal)
-# URL_MAP_NAME="inmediarevs-deep-connections-url-map"
-# IP_NAME="inmediarevs-deep-connections-ip"
+# Reemplaza con el nombre de tu bucket, IP estática, backend bucket y mapa de URL
+# Si ya configuraste estas variables en tu terminal, puedes omitir estas líneas.
+# BUCKET_NAME="inmediarevs-deep-connections-static" # Nombre del bucket (para referencia, no se usa en estos comandos directos)
+IP_NAME="deep-connections-app-ip" # Nombre de tu IP estática
+# BACKEND_BUCKET_NAME="deep-connections-backend" # Nombre del backend bucket (para referencia)
+URL_MAP_NAME="deep-connections-url-map" # Nombre de tu mapa de URL
 
+# Reemplaza con el nombre que usaste para tu certificado SSL (confirma con 'gcloud compute ssl-certificates list')
+CERT_NAME="deep-connections-app-cert"
+
+# Asegúrate de estar en el proyecto y la región correcta
+gcloud config set project [YOUR_PROJECT_ID]
+gcloud config set compute/region [YOUR_REGION_NAME] # Debe coincidir con la región del Load Balancer (global para HTTP(S) LB)
 
 # Define un nombre para el proxy HTTPS de destino
-HTTPS_PROXY_NAME="inmediarevs-deep-connections-https-proxy"
+HTTPS_PROXY_NAME="deep-connections-app-https-proxy"
 
-# Crea el proxy HTTPS de destino, apuntando a tu mapa de URL y usando el certificado SSL
+# --- Crea el Target HTTPS Proxy ---
+# Este proxy usa tu mapa de URL para saber a dónde enviar el tráfico
+# y usa tu certificado SSL para descifrar la conexión.
+# Si ya existe un proxy con este nombre, el comando fallará a menos que lo borres primero.
+# Si estás reejecutando pasos, considera borrarlo antes:
+# gcloud compute target-https-proxies delete ${HTTPS_PROXY_NAME} --global --quiet
+echo "Creando Target HTTPS Proxy ${HTTPS_PROXY_NAME}..."
 gcloud compute target-https-proxies create ${HTTPS_PROXY_NAME} \
     --ssl-certificates=${CERT_NAME} \
-    --url-map=${URL_MAP_NAME}
+    --url-map=${URL_MAP_NAME} \
+    --global # Los proxies de Load Balancer HTTP(S) son globales
 
-echo "Proxy HTTPS ${HTTPS_PROXY_NAME} creado usando el certificado ${CERT_NAME} y el mapa de URL ${URL_MAP_NAME}."
+echo "Target HTTPS Proxy creado."
 
-# Define un nombre para la regla de reenvío global para HTTPS
+
+# Define un nombre para la regla de reenvío global para HTTPS (puerto 443)
 HTTPS_FW_RULE_NAME="inmediarevs-deep-connections-https-forwarding-rule"
 
-# Crea la regla de reenvío global para el puerto 443 (HTTPS), asociándola a la IP estática y al proxy HTTPS
+# --- Crea la Regla de Reenvío Global para el puerto 443 ---
+# Esta regla dirige el tráfico que llega a tu IP estática por el puerto 443
+# al Target HTTPS Proxy.
+# Si ya existe una regla con este nombre, el comando fallará.
+# Si estás reejecutando pasos, considera borrarla antes:
+# gcloud compute forwarding-rules delete ${HTTPS_FW_RULE_NAME} --global --quiet
+echo "Creando Regla de Reenvío Global para HTTPS (puerto 443) ${HTTPS_FW_RULE_NAME}..."
 gcloud compute forwarding-rules create ${HTTPS_FW_RULE_NAME} \
     --global \
     --ports=443 \
     --address=${IP_NAME} \
     --target-https-proxy=${HTTPS_PROXY_NAME}
 
-echo "Regla de reenvío ${HTTPS_FW_RULE_NAME} creada para la IP ${IP_NAME} en el puerto 443 (HTTPS)."
+echo "Regla de Reenvío para HTTPS creada."
 
-echo "Configuración del Load Balancer HTTPS completada."
-echo "Una vez que el certificado esté activo y la configuración se propague, podrás acceder a tu sitio vía HTTPS."
+echo "Comandos para configurar componentes HTTPS del Load Balancer ejecutados."
 ```
 
 ## Paso Final: Actualizar los Registros DNS de tu Dominio
