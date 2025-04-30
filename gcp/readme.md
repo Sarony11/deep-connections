@@ -109,6 +109,72 @@ echo "Regla de reenvío ${FW_RULE_NAME} creada para la IP ${IP_ADDRESS} en el pu
 echo "Configuración del Load Balancer HTTP completada."
 echo "La dirección IP estática que debes usar en tu DNS es: ${IP_ADDRESS}"
 ```
+
+## Comandos para Configurar HTTPS:
+
+Primero, define un nombre para tu certificado y asegúrate de estar en el proyecto y región correctos:
+
+```bash
+
+# Reemplaza con el nombre que quieras para tu certificado
+CERT_NAME="inmediarevs-deep-connections-cert"
+
+# Reemplaza con tu ID de proyecto y la región que usaste antes
+gcloud config set project [YOUR_PROJECT_ID]
+gcloud config set compute/region [YOUR_REGION_NAME]
+```
+
+Ahora, crea el certificado gestionado por Google. Deberás especificar los dominios que cubrirá (en tu caso, tu dominio principal inmediarevs.org). Si configuraste un subdominio para pruebas antes, puedes incluirlo también, aunque la configuración del Load Balancer actual apunta la IP al dominio principal.
+
+```bash
+# Crea un certificado SSL gestionado por Google para tu dominio
+# Google se encargará de verificar la propiedad del dominio.
+gcloud compute ssl-certificates create ${CERT_NAME} \
+    --domains=inmediarevs.org
+    # Si planeas usar también un subdominio como deep-connections.inmediarevs.org con este certificado, añádelo:
+    # --domains=inmediarevs.org,deep-connections.inmediarevs.org
+
+echo "Certificado SSL ${CERT_NAME} solicitado para inmediarevs.org."
+echo "La verificación y aprovisionamiento del certificado puede tardar varios minutos u horas."
+echo "Puedes verificar el estado con: gcloud compute ssl-certificates list"
+```
+
+Espera a que el certificado cambie su estado a ACTIVE. Esto puede tardar. Puedes usar el comando gcloud compute ssl-certificates list repetidamente para verificar el estado. No continúes hasta que el estado sea ACTIVE.
+
+Una vez que el certificado esté ACTIVE, configura los componentes del Load Balancer para HTTPS:
+
+```bash
+# Reemplaza con el nombre de tu mapa de URL y tu IP estática (si no los definiste en tu terminal)
+# URL_MAP_NAME="inmediarevs-deep-connections-url-map"
+# IP_NAME="inmediarevs-deep-connections-ip"
+
+
+# Define un nombre para el proxy HTTPS de destino
+HTTPS_PROXY_NAME="inmediarevs-deep-connections-https-proxy"
+
+# Crea el proxy HTTPS de destino, apuntando a tu mapa de URL y usando el certificado SSL
+gcloud compute target-https-proxies create ${HTTPS_PROXY_NAME} \
+    --ssl-certificates=${CERT_NAME} \
+    --url-map=${URL_MAP_NAME}
+
+echo "Proxy HTTPS ${HTTPS_PROXY_NAME} creado usando el certificado ${CERT_NAME} y el mapa de URL ${URL_MAP_NAME}."
+
+# Define un nombre para la regla de reenvío global para HTTPS
+HTTPS_FW_RULE_NAME="inmediarevs-deep-connections-https-forwarding-rule"
+
+# Crea la regla de reenvío global para el puerto 443 (HTTPS), asociándola a la IP estática y al proxy HTTPS
+gcloud compute forwarding-rules create ${HTTPS_FW_RULE_NAME} \
+    --global \
+    --ports=443 \
+    --address=${IP_NAME} \
+    --target-https-proxy=${HTTPS_PROXY_NAME}
+
+echo "Regla de reenvío ${HTTPS_FW_RULE_NAME} creada para la IP ${IP_NAME} en el puerto 443 (HTTPS)."
+
+echo "Configuración del Load Balancer HTTPS completada."
+echo "Una vez que el certificado esté activo y la configuración se propague, podrás acceder a tu sitio vía HTTPS."
+```
+
 ## Paso Final: Actualizar los Registros DNS de tu Dominio
 
 Ve a la configuración DNS de tu dominio inmediarevs.org con tu proveedor de dominio.
