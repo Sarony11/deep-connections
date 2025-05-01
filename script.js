@@ -35,7 +35,7 @@ var decks = {
             "¿Qué te atrae más de los juegos de rol en vivo (LARP) en comparación con los de mesa, si has jugado a ambos? ¿Encuentras alguna diferencia clave en la experiencia?"
         ],
         order: 'random', // Este mazo es aleatorio
-        description: "Preguntas diseñadas para romper el hielo y conocerse mejor, ideal para grupos de rol o amigos con intereses similares."
+        description: "Preguntas diseñadas para romper el hielo y conocerse mejor entre grupos y colegas roleros que compaten afición."
     },
     "disenadores-larp": {
         name: "Reflexiones para Diseñadores de LARP",
@@ -109,7 +109,44 @@ var decks = {
             "**Jugador a Jugador:** ¿Cuál es el objetivo principal (o los objetivos) que tenemos como jugadores al explorar esta relación particular durante el LARP?"
         ],
         order: 'sequential', // ¡Este mazo es secuencial!
-        description: "Preguntas para profundizar la conexión entre personas que ya se conocen, explorando vulnerabilidades, sueños y valores personales."
+        description: "Diseñado para la calibración de personajes en LARP, con preguntas y prompts para construir vínculos, establecer límites y explorar la historia compartida."
+    },
+    "profundidad-personaje": {
+        name: "Mazo: Profundidad de Personaje LARP", // <-- Nuevo Nombre a mostrar
+        questions: [
+            "Más allá de su historia, ¿cuál crees que es la herida emocional más profunda de tu personaje? ¿Cómo intenta compensarla o esconderla en su vida diaria?",
+            "Si tu personaje tuviera un miedo secreto que apenas se atreve a reconocer, ¿cuál sería y cómo crees que influye en sus decisiones (inconscientemente)?",
+            "Describe un \"gestus\" o manerismo físico muy particular de tu personaje cuando está bajo estrés o conteniendo una emoción fuerte.",
+            "¿Qué recuerdo (feliz, triste, traumático) del pasado de tu personaje, aunque no esté explícito en el brief, sientes que le ha marcado más? ¿Por qué?",
+            "Si pudieras elegir una banda sonora para la vida interior de tu personaje, ¿qué canción sería y por qué?",
+            "¿Cuál es el mayor deseo insatisfecho de tu personaje? ¿Cómo afecta su forma de interactuar con el mundo?",
+            "Describe cómo camina tu personaje. ¿Es rápido, lento, arrastra los pies, pecho fuera? ¿Qué dice eso de él/ella?",
+            "¿Qué situación o tipo de persona saca lo peor (o lo mejor) de tu personaje?",
+            "Si tu personaje pudiera tener un objeto fetiche (algo que le dé seguridad o significado), ¿cuál sería? ¿Cómo lo manejaría físicamente?",
+            "¿Cuál es una contradicción interesante en la personalidad de tu personaje? ¿Cómo intentas mostrar esa contradicción al jugar?",
+            "Piensa en la relación más importante de tu personaje. ¿Cómo cambia su postura corporal, tono de voz o gestos cuando está con esa persona?",
+            "¿Qué mentira se dice a sí mismo/a tu personaje? ¿Cómo se refleja esa auto-mentira en su forma de hablar o actuar?",
+            "Describe una expresión facial típica de tu personaje cuando está concentrado/a, enojado/a o triste.",
+            "¿Qué le da esperanza a tu personaje en los momentos difíciles? ¿Dónde busca esa esperanza?",
+            "Si tu personaje tuviera un \"superpoder\" no mágico, ¿cuál sería su habilidad social más destacada? ¿Cómo la usa?",
+            "¿Cómo reacciona físicamente tu personaje bajo estrés o presión? (Ej. Juega con algo, se muerde el labio, evita la mirada).",
+            "¿Qué creencia profunda de tu personaje nunca cuestionaría, aunque le causara problemas?",
+            "Describe el tono de voz habitual de tu personaje. ¿Es suave, áspero, rápido, lento, agudo, grave? ¿Qué comunica eso?",
+            "¿Cuál es un pequeño vicio o indulgencia que tu personaje se permite en privado?",
+            "Piensa en un momento en el que tu personaje tuvo que tomar una decisión muy difícil. ¿Qué gesto o acción física acompañó ese momento?",
+            "¿Qué le resulta más fácil a tu personaje fingir (una emoción, una intención) y qué le cuesta más disimular?",
+            "Describe cómo se sienta tu personaje en diferentes situaciones (solo, con amigos, en una reunión formal).",
+            "¿Qué le da a tu personaje una sensación de propósito o significado en la vida?",
+            "¿Hay alguna cicatriz (física o emocional) en tu personaje que cuente una historia importante? ¿Cómo influye en su comportamiento o gestos?",
+            "Si tu personaje pudiera romper una regla social sin consecuencias, ¿cuál sería?",
+            "Describe cómo tu personaje usa sus manos al hablar o interactuar. ¿Son expresivas, quietas, inquietas?",
+            "¿Qué no entiende tu personaje del mundo o de las personas que le rodean?",
+            "¿Cuál es la mayor fortaleza emocional de tu personaje? ¿Y su mayor debilidad emocional? ¿Cómo se ven ambas?",
+            "Si tu personaje tuviera un tic nervioso, ¿cuál sería? ¿Cuándo aparecería?",
+            "Como jugador, ¿qué aspecto de este personaje te resulta más interesante o desafiante de interpretar?"
+        ],
+        order: 'sequential', // <-- Sugerimos orden secuencial para un proceso guiado
+        description: "Preguntas para jugadores de LARP y ayudar a interpretar a tu perosnaje dotándolo de mayor profunidad, llenando detalles que lo completen y reflexionando sobre sus gestus y manerismos."
     },
     "conexion-profunda": {
         name: "Conexión Profunda",
@@ -146,7 +183,7 @@ var decks = {
             "¿Qué es lo más importante que has aprendido de tus relaciones (amistades, familia, pareja)?"
         ],
         order: 'random', // Este mazo es aleatorio
-        description: "Diseñado para la calibración de personajes en LARP, con preguntas y prompts para construir vínculos, establecer límites y explorar la historia compartida."
+        description: "Preguntas para profundizar la conexión entre personas que ya se conocen, explorando vulnerabilidades, sueños y valores personales."
     }
     // Aquí podrías añadir más mazos en el futuro
 };

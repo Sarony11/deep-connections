@@ -1,34 +1,38 @@
-/* Estilos Generales para el Cuerpo de la Página */
+/* Estilos Generales para un Diseño Minimalista y Moderno */
+
+/* Configuración básica del cuerpo y fondo */
 body {
-    font-family: 'Arial', sans-serif; /* Usamos una fuente común y limpia */
+    font-family: 'Roboto', sans-serif; /* Usamos una fuente sans-serif moderna y legible */
     display: flex;
     justify-content: center; /* Centra el contenido horizontalmente */
     align-items: center; /* Centra el contenido verticalmente */
-    min-height: 100vh; /* Asegura que el cuerpo ocupa al menos todo el alto de la ventana */
-    background: linear-gradient(to bottom right, #6a11cb, #2575fc); /* Fondo con un gradiente azul/morado */
+    min-height: 100vh; /* Asegura que ocupa al menos el alto de la ventana */
+    background-color: #f0f2f5; /* Un color de fondo gris muy claro y suave */
+    /* Puedes añadir un patrón sutil si quieres, por ejemplo con data URIs o una imagen */
     margin: 0;
-    padding: 20px;
-    box-sizing: border-box; /* Incluye padding y border en el tamaño del elemento */
-    color: #333; /* Color de texto oscuro por defecto */
-    line-height: 1.6; /* Mejora la legibilidad del texto general */
+    padding: 30px; /* Aumentamos el padding general */
+    box-sizing: border-box;
+    color: #333; /* Color de texto principal oscuro */
+    line-height: 1.6; /* Mejora la legibilidad */
+    overflow-y: auto; /* Permite scroll si el contenido es largo */
 }
 
-/* Estilo para el Contenedor Principal (Tarjeta) */
+/* Estilo para el Contenedor Principal (Tarjeta Central) */
 .container {
-    background-color: #ffffff; /* Fondo blanco para la tarjeta */
-    padding: 40px; /* Mayor padding interno */
-    border-radius: 12px; /* Bordes más redondeados */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    background-color: #ffffff; /* Fondo blanco limpio para la tarjeta */
+    padding: 40px; /* Padding generoso */
+    border-radius: 16px; /* Bordes más redondeados para un look moderno */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sombra suave y difuminada */
     text-align: center;
-    max-width: 600px;
+    max-width: 700px; /* Ancho máximo un poco mayor */
     width: 100%;
-    /* Animación de aparición */
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInSlideUp 0.6s ease-out forwards;
+    opacity: 0; /* Inicialmente invisible para la animación */
+    transform: translateY(20px); /* Ligeramente desplazado hacia abajo */
+    animation: fadeInSlideUp 0.6s ease-out forwards; /* Animación de aparición suave */
+    margin: auto; /* Asegura centrado si el contenido no ocupa el ancho máximo */
 }
 
-/* Definición de la animación */
+/* Animación de aparición */
 @keyframes fadeInSlideUp {
     to {
         opacity: 1;
@@ -36,170 +40,132 @@ body {
     }
 }
 
+
 /* Estilos para los Títulos */
 h1 {
     color: #333;
-    margin-bottom: 30px; /* Más espacio debajo del título */
-    font-size: 2.2em; /* Tamaño de fuente un poco más grande */
+    margin-bottom: 30px;
+    font-size: 2.4em; /* Tamaño de fuente un poco más grande */
     font-weight: 700; /* Negrita */
-    letter-spacing: -0.5px; /* Espaciado ligero entre letras */
+    letter-spacing: -0.8px; /* Espaciado entre letras ligeramente más cerrado */
 }
 
 /* Estilo para la Zona de la Pregunta (Tarjeta Interior) */
 #question-area {
-    min-height: 150px; /* Altura mínima para dar espacio */
+    min-height: 180px; /* Altura mínima para mayor espacio */
     display: flex;
-    align-items: center; /* Centra el texto verticalmente */
-    justify-content: center; /* Centra el texto horizontalmente */
+    align-items: center;
+    justify-content: center;
     margin-bottom: 30px;
-    padding: 25px;
-    border: none; /* Quitamos el borde punteado anterior */
-    background-color: #f9f9f9; /* Fondo ligeramente gris para distinguirlo */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.05); /* Sombra interior sutil */
-    font-size: 1.4em; /* Tamaño de fuente de la pregunta */
-    line-height: 1.6; /* Espaciado de línea mejorado */
-    color: #555;
-    font-style: italic; /* La pregunta en cursiva */
-    word-break: break-word; /* Para evitar que palabras largas desborden */
+    padding: 30px; /* Mayor padding */
+    border: none; /* Eliminamos el borde */
+    background-color: #ffffff; /* Fondo blanco, la sombra lo distingue del contenedor */
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Sombra interior sutil */
+    font-size: 1.5em; /* Tamaño de fuente de la pregunta */
+    line-height: 1.7; /* Espaciado de línea mejorado */
+    color: #444; /* Color de texto ligeramente más claro */
+    font-style: normal; /* Por defecto no cursiva */
+    text-align: center;
+    word-break: break-word; /* Evita desbordamiento */
 }
 
+/* Estilo específico para el texto de la pregunta dentro del área */
 #current-question {
-    margin: 0; /* Elimina el margen por defecto del párrafo */
-    text-align: center; /* Asegura que el texto esté centrado */
+    margin: 0;
+    font-style: italic; /* Aplicamos la cursiva solo al texto de la pregunta */
 }
 
-/* Estilo para el Botón "Siguiente Pregunta" */
-#next-question-btn {
+/* Estilo para el Indicador de Progreso */
+#progress-indicator {
+    margin-top: -15px;
+    margin-bottom: 25px;
+    font-size: 1.1em;
+    color: #666; /* Color gris discreto */
+    text-align: center;
+    font-weight: 500; /* Semi-negrita */
+}
+
+/* Estilos para los Botones (Siguiente y Volver) */
+#next-question-btn, #back-to-decks-btn {
     display: inline-block;
-    padding: 12px 25px; /* Mayor padding */
-    font-size: 1.1em; /* Tamaño de fuente */
-    color: #ffffff; /* Texto blanco */
-    background-color: #007bff; /* Color primario azul */
+    padding: 14px 30px; /* Mayor padding */
+    font-size: 1.2em; /* Tamaño de fuente */
+    color: #ffffff;
     border: none;
-    border-radius: 25px; /* Bordes muy redondeados (forma de píldora) */
+    border-radius: 30px; /* Forma de píldora más redondeada */
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.1s ease; /* Transiciones suaves */
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); /* Sombra que coincide con el color */
+    transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease; /* Transiciones suaves */
     font-weight: 600; /* Semi-negrita */
+    margin: 10px; /* Espacio si están lado a lado */
+}
+
+/* Estilo específico para el botón Siguiente Pregunta */
+#next-question-btn {
+     background-color: #007bff; /* Color primario azul */
+     box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2); /* Sombra acorde */
 }
 
 #next-question-btn:hover {
-    background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
-    transform: translateY(-2px); /* Efecto de ligero levantamiento */
-    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4);
+    background-color: #0056b3; /* Azul más oscuro */
+    transform: translateY(-2px); /* Efecto levantar */
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
 }
 
 #next-question-btn:active {
-    background-color: #004085; /* Azul aún más oscuro al hacer clic */
-    transform: translateY(0); /* Efecto de "presionar" */
-    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.5);
+    background-color: #004085; /* Azul aún más oscuro */
+    transform: translateY(0); /* Efecto presionar */
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.4);
 }
 
-#next-question-btn:disabled {
-    background-color: #cccccc; /* Gris cuando está deshabilitado */
+/* Estilo específico para el botón Volver a Elegir Mazo */
+#back-to-decks-btn {
+    background-color: #6c757d; /* Color secundario gris */
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.2); /* Sombra acorde */
+}
+
+#back-to-decks-btn:hover {
+    background-color: #5a6268; /* Gris más oscuro */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 117, 125, 0.3);
+}
+
+#back-to-decks-btn:active {
+    background-color: #4e555b; /* Gris aún más oscuro */
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(108, 117, 125, 0.4);
+}
+
+/* Estilo para botones deshabilitados */
+#next-question-btn:disabled, #back-to-decks-btn:disabled {
+    background-color: #cccccc;
     cursor: not-allowed;
     box-shadow: none;
     transform: none;
 }
 
-/* Estilos específicos para el Área de Selección de Mazo */
+
+/* Estilos para el Área de Selección de Mazo y las Tarjetas */
 #deck-selection-area h1 {
-     margin-bottom: 20px; /* Menos margen para que los botones estén más cerca */
+     margin-bottom: 30px; /* Margen consistente */
 }
 
 #deck-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px; /* Espacio entre tarjetas */
     margin-top: 20px;
-}
-
-#deck-options button {
-    display: block;
-    width: 90%; /* Ancho de los botones de mazo */
-    margin: 15px auto; /* Espacio vertical entre botones */
-    padding: 15px; /* Padding interno */
-    font-size: 1.2em; /* Tamaño de fuente */
-    color: #ffffff; /* Texto blanco */
-    background-color: #28a745; /* Color verde */
-    border: none;
-    border-radius: 8px; /* Bordes redondeados */
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease; /* Transiciones */
-    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3); /* Sombra verde */
-    font-weight: 600; /* Semi-negrita */
-}
-
-#deck-options button:hover {
-    background-color: #218838; /* Verde más oscuro al pasar el ratón */
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(40, 167, 69, 0.4);
-}
-
-#deck-options button:active {
-    background-color: #1e7e34; /* Verde aún más oscuro al hacer clic */
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.5);
-}
-
-/* Estilo para el Indicador de Progreso */
-#progress-indicator {
-    margin-top: -15px; /* Ajusta el margen superior para acercarlo al área de pregunta/botón */
-    margin-bottom: 20px; /* Espacio debajo del indicador */
-    font-size: 1em; /* Tamaño de fuente normal */
-    color: #777; /* Un color gris sutil */
-    text-align: center;
-}
-
-/* Estilo para el Botón "Volver a Elegir Mazo" */
-#back-to-decks-btn {
-    display: inline-block; /* Comportamiento similar al botón Siguiente */
-    padding: 12px 25px;
-    font-size: 1.1em;
-    color: #ffffff;
-    background-color: #6c757d; /* Un color secundario (gris) */
-    border: none;
-    border-radius: 25px; /* Forma de píldora */
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.1s ease;
-    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3); /* Sombra acorde al color */
-    font-weight: 600;
-    margin-top: 10px; /* Espacio sobre este botón si aparece después del "Siguiente" */
-}
-
-#back-to-decks-btn:hover {
-    background-color: #5a6268; /* Color más oscuro al pasar el ratón */
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(108, 117, 125, 0.4);
-}
-
-#back-to-decks-btn:active {
-    background-color: #4e555b; /* Color aún más oscuro al hacer clic */
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(108, 117, 125, 0.5);
-}
-
-/* Asegúrate de que la clase hidden sigue definida */
-.hidden {
-    display: none;
-}
-
-/* Añade estas reglas o modifica las existentes relacionadas con #deck-options y sus botones */
-
-/* Contenedor para las tarjetas para habilitar la perspectiva 3D */
-#deck-options {
-    display: flex; /* Usamos flexbox para organizar las tarjetas */
-    flex-wrap: wrap; /* Permite que las tarjetas salten de línea */
-    justify-content: center; /* Centra las tarjetas horizontalmente */
-    gap: 20px; /* Espacio entre las tarjetas */
-    margin-top: 20px;
-    perspective: 1000px; /* Añade perspectiva 3D al contenedor */
+    perspective: 1000px; /* Perspectiva para el volteo */
 }
 
 /* Contenedor de cada Tarjeta de Mazo Individual */
 .deck-card {
-    width: 250px; /* Ancho fijo de la tarjeta */
-    height: 180px; /* Alto fijo de la tarjeta */
-    cursor: pointer; /* Indica que es clickeable */
-    background-color: transparent; /* El contenedor exterior es transparente */
+    width: 280px; /* Ancho de la tarjeta */
+    height: 200px; /* Alto de la tarjeta */
+    cursor: pointer;
+    background-color: transparent;
+    /* Añade un borde suave si quieres: border: 1px solid #ddd; */
 }
 
 /* Contenedor Interior que Gira (para el efecto 3D) */
@@ -208,16 +174,16 @@ h1 {
     width: 100%;
     height: 100%;
     text-align: center;
-    transition: transform 0.8s; /* Transición suave para el giro (0.8 segundos) */
-    transform-style: preserve-3d; /* Mantiene los elementos hijos en el espacio 3D */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra inicial */
+    transition: transform 0.7s ease-in-out; /* Transición con un easing sutil */
+    transform-style: preserve-3d;
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Sombra inicial */
 }
 
 /* Efecto de Volteo al Pasar el Ratón (Hover) */
 .deck-card:hover .deck-card-inner {
-    transform: rotateY(180deg); /* Gira 180 grados en el eje Y */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más grande al girar */
+    transform: rotateY(180deg); /* Gira al pasar el ratón */
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al girar */
 }
 
 /* Caras Frontal y Trasera de la Tarjeta */
@@ -225,53 +191,100 @@ h1 {
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden; /* Oculta la cara trasera durante el giro (para Webkit) */
-    backface-visibility: hidden; /* Oculta la cara trasera durante el giro (estándar) */
-    border-radius: 8px;
-    display: flex; /* Usamos flexbox para centrar el contenido */
-    flex-direction: column; /* Los elementos hijos se apilan verticalmente */
-    justify-content: center; /* Centra el contenido verticalmente */
-    align-items: center; /* Centra el contenido horizontalmente */
-    padding: 15px;
-    box-sizing: border-box; /* Incluye el padding en el tamaño total del elemento */
+    -webkit-backface-visibility: hidden; /* Oculta la cara trasera durante el giro */
+    backface-visibility: hidden;
+    border-radius: 12px; /* Bordes redondeados */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Padding interno */
+    box-sizing: border-box;
+    overflow-y: auto; /* Scroll si el contenido de la descripción es largo */
 }
 
-/* Estilo de la Cara Frontal */
+/* Estilo de la Cara Frontal (con degradado sutil) */
 .deck-card-front {
-    background-color: #28a745; /* Fondo verde */
-    color: white; /* Texto blanco */
-    font-size: 1.3em; /* Tamaño de fuente */
-    font-weight: bold; /* Negrita */
-    /* Puedes añadir un degradado sutil si quieres */
-    /* background: linear-gradient(45deg, #28a745, #218838); */
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); /* Degradado que se integra con el fondo del body si se usa */
+    color: white;
+    font-size: 1.4em;
+    font-weight: 700;
 }
 
-/* Estilo de la Cara Trasera */
+/* Estilo de la Cara Trasera (limpia y blanca) */
 .deck-card-back {
-    background-color: #f9f9f9; /* Fondo gris claro para la descripción */
-    color: #333; /* Texto oscuro */
-    transform: rotateY(180deg); /* Rota la cara trasera 180 grados inicialmente para que no se vea */
-    font-size: 0.9em; /* Tamaño de fuente más pequeño para la descripción */
-    line-height: 1.4; /* Espaciado entre líneas mejorado */
+    background-color: #ffffff; /* Fondo blanco */
+    color: #444; /* Texto oscuro */
+    transform: rotateY(180deg); /* Rotada inicialmente */
+    font-size: 0.95em;
+    line-height: 1.5;
     text-align: center;
-    overflow-y: auto; /* Añade scroll si la descripción es muy larga */
-    /* Puedes añadir un borde sutil */
-    /* border: 1px solid #ddd; */
 }
 
 /* Estilo para el Título del Mazo en la Cara Frontal */
 .deck-card-front h3 {
-    margin: 0; /* Elimina margen por defecto */
-    font-size: 1.1em; /* Tamaño de fuente ligeramente menor que el contenedor */
+    margin: 0;
+    font-size: 1em; /* Relativo al tamaño de fuente del contenedor */
 }
 
 /* Estilo para la Descripción en la Cara Trasera */
 .deck-card-back p {
-    margin: 0; /* Elimina margen por defecto */
+    margin: 0;
 }
 
-/* Oculta los botones antiguos si todavía se generaran por error */
-#deck-options button {
+/* Clase para ocultar elementos */
+.hidden {
     display: none;
 }
 
+/* Ajustes Responsivos para Pantallas Pequeñas */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        padding: 25px;
+        border-radius: 12px;
+    }
+
+    h1 {
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+
+    #question-area {
+        font-size: 1.3em;
+        min-height: 150px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    #next-question-btn, #back-to-decks-btn {
+        padding: 12px 25px;
+        font-size: 1.1em;
+        border-radius: 25px;
+    }
+
+    #deck-options {
+        gap: 15px; /* Menos espacio entre tarjetas en móvil */
+    }
+
+    .deck-card {
+        width: 90%; /* Ocupa casi todo el ancho */
+        height: 180px;
+    }
+
+    .deck-card-inner {
+        border-radius: 8px;
+    }
+
+    .deck-card-front, .deck-card-back {
+        border-radius: 8px;
+        font-size: 1.2em;
+        padding: 15px;
+    }
+     .deck-card-back {
+         font-size: 0.9em;
+     }
+}
